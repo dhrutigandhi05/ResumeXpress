@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-# from routes import auth, resume
+from routes import auth
+# , resume
 
 app = FastAPI()
 
