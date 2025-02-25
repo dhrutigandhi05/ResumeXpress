@@ -13,6 +13,10 @@ class UserLogin(BaseModel):
     email: str
     password: str
 
+class ConfirmUser(BaseModel):
+    email: str
+    confirmation_code: str
+
 @router.post("/signup")
 def signup(user: UserSignup):
     try:
@@ -43,5 +47,17 @@ def login(user: UserLogin):
         )
 
         return {"token": response["AuthenticationResult"]["IdToken"]}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    
+@router.post("/confirm")
+def confirm_user(user: ConfirmUser):
+    try:
+        response = config.cognito_client.confirm_sign_up(
+            ClientId=config.COGNITO_CLIENT_ID,
+            Username=user.email,
+            ConfirmationCode=user.confirmation_code,
+        )
+        return {"message": "User confirmed successfully"}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
