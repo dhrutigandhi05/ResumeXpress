@@ -25,3 +25,16 @@ def signup(user: UserSignup):
         return {"message": "Signup was successful"}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+@router.post("/login")
+def login(user: UserLogin):
+    try:
+        response = config.cognito_client.initiate_auth(
+            ClientId=config.COGNITO_CLIENT_ID,
+            AuthFlow="USER_PASSWORD_AUTH",
+            AuthParameters={"USERNAME": user.email, "PASSWORD": user.password},
+        )
+
+        return {"token": response["AuthenticationResult"]["IdToken"]}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
