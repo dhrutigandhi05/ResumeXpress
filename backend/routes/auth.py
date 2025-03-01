@@ -17,6 +17,9 @@ class ConfirmUser(BaseModel):
     email: str
     confirmation_code: str
 
+class ResendConfirmationRequest(BaseModel):
+    email: str
+
 @router.post("/signup")
 def signup(user: UserSignup):
     try:
@@ -59,5 +62,17 @@ def confirm_user(user: ConfirmUser):
             ConfirmationCode=user.confirmation_code,
         )
         return {"message": "User confirmed successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@router.post("/resend-confirmation")
+def resend_confirmation(user: ResendConfirmationRequest):
+    try:
+        response = config.cognito_client.resend_confirmation_code(
+            ClientId=config.COGNITO_CLIENT_ID,
+            Username=user.email,
+        )
+
+        return {"message": "Resent confirmation code"}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
