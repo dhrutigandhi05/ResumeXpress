@@ -56,10 +56,12 @@ def login(user: UserLogin):
 @router.post("/confirm")
 def confirm_user(user: ConfirmUser):
     try:
+        secret_hash = config.calculate_secret_hash(user.email)
         response = config.cognito_client.confirm_sign_up(
             ClientId=config.COGNITO_CLIENT_ID,
             Username=user.email,
             ConfirmationCode=user.confirmation_code,
+            SecretHash=secret_hash
         )
         return {"message": "User confirmed successfully"}
     except Exception as e:
@@ -68,9 +70,11 @@ def confirm_user(user: ConfirmUser):
 @router.post("/resend-confirmation")
 def resend_confirmation(user: ResendConfirmationRequest):
     try:
+        secret_hash = config.calculate_secret_hash(user.email)
         response = config.cognito_client.resend_confirmation_code(
             ClientId=config.COGNITO_CLIENT_ID,
             Username=user.email,
+            SecretHash=secret_hash
         )
 
         return {"message": "Resent confirmation code"}
