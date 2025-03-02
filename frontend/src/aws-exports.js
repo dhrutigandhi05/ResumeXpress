@@ -1,8 +1,8 @@
 const awsConfig = {
     Auth: {
-        region: "ca-central-1",
-        userPoolId: "ca-central-1_6xyTF7aYM",
-        userPoolWebClientId: "5u19hb6l1ls3lmphce1l1me4bn",
+        region: process.env.REACT_APP_AWS_REGION,
+        userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
+        userPoolWebClientId: REACT_APP_COGNITO_CLIENT_ID,
         authenticationFlowType: "USER_PASSWORD_AUTH",
     },
 };
