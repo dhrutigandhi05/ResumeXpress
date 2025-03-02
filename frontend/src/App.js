@@ -5,7 +5,7 @@ import {Amplify} from "aws-amplify";
 import awsConfig from "./aws-exports";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/HomePage.js";
 import ProfilePage from "./pages/ProfilePage";
 
 Amplify.configure(awsConfig);
