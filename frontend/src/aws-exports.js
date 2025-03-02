@@ -6,3 +6,5 @@ const awsConfig = {
         authenticationFlowType: "USER_PASSWORD_AUTH",
     },
 };
+
+export default awsConfig;
