@@ -1,12 +1,17 @@
 // import logo from './logo.svg';
 // import './App.css';
 import React from "react";
-import {Amplify} from "aws-amplify";
-import awsConfig from "./aws-exports";
+import { Amplify } from "aws-amplify";
+import awsConfig from "./aws-exports.js";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage.js";
-import ProfilePage from "./pages/ProfilePage";
+import ProfilePage from "./pages/ProfilePage.js";
+
+console.log("AWS Config:", awsConfig);
+console.log("Region:", awsConfig.Auth.region);
+console.log("User Pool ID:", awsConfig.Auth.userPoolId);
+console.log("Client ID:", awsConfig.Auth.userPoolWebClientId);
 
 Amplify.configure(awsConfig);
 
