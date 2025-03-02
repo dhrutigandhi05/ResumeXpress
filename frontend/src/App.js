@@ -11,6 +11,8 @@ console.log("Region:", awsConfig.Auth.region);
 console.log("User Pool ID:", awsConfig.Auth.userPoolId);
 console.log("Client ID:", awsConfig.Auth.userPoolWebClientId);
 console.log("Auth Flow Type:", awsConfig.Auth.authenticationFlowType);
+console.log("AWS Auth Config:", awsConfig.Auth);
+console.log("Amplify Config:", Amplify.configure());
 
 Amplify.configure(awsConfig);
 
