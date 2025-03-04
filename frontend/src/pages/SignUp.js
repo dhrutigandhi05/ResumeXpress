@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import UserPool from "../cognito";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
+import SignupForm from "../components/SignupForm";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
@@ -24,4 +26,19 @@ const Signup = () => {
             }
         });
     };
+
+    return (
+        <SignupForm
+            handleSubmit={handleSubmit}
+            name={name}
+            setName={setName}
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            message={message}
+        />
+    );
 };
+
+export default Signup;
