@@ -1,6 +1,4 @@
 import React from "react";
-import { Amplify } from "aws-amplify";
-import awsConfig from "./aws-exports.js";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage.js";
