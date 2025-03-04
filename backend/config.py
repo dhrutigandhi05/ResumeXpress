@@ -23,7 +23,7 @@ def calculate_secret_hash(username):
     dig = hmac.new(
         COGNITO_CLIENT_SECRET.encode("utf-8"),
         message.encode("utf-8"),
-        hashlib.sha256
+        hashlib.sha256,
     ).digest()
 
     return base64.b64encode(dig).decode()
