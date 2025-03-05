@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import UserPool from "../cognito";
-import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import SignupForm from "../components/SignupForm";
+import API_URL from "../config";
+import axios from "axios";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
@@ -10,21 +10,20 @@ const Signup = () => {
     const [name, setName] = useState("");
     const [message, setMessage] = useState("");
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const attributeList = [
-            new CognitoUserAttribute({Name: "email", Value: email}),
-            new CognitoUserAttribute({Name: "name", Value: name}),
-        ];
-
-        UserPool.signup(email, password, attributeList, null, (err, data) =>{
-            if (err) {
-                setMessage(`Error: ${err.message}`);
-            } else {
-                setMessage("Signup was successful. Check your email for the confirmation code");
-            }
-        });
+        try {
+            const response = await axios.post(`${API_URL}/signup`, {
+                email,
+                password,
+                name,
+            });
+            
+            setMessage(response.data.message);
+        } catch (error) {
+            setMessage(error.response?.data?.detail || "Signup failed.");
+        }
     };
 
     return (
