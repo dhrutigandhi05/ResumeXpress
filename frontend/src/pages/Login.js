@@ -1,38 +1,29 @@
 import React from "react";
 import { useState } from "react";
-import { AuthenticationDetails } from "amazon-cognito-identity-js";
-import { CognitoUser } from "amazon-cognito-identity-js";
-import UserPool from "../cognito";
 import LoginForm from "../components/LoginForm";
+import API_URL from "../config";
+import axios from "axios";
 
 const Login = ({setUser}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const user = new CognitoUser({
-            Username: email,
-            Pool: UserPool,
-        });
+        try {
+            const response = await axios.post(`${API_URL}/login`, {
+                email,
+                password,
+            });
 
-        const authDetails = new AuthenticationDetails({
-            Username: email,
-            Password: password,
-        });
-
-        user.authenticateUser(authDetails, {
-            onSuccess: (data) => {
-                setUser(data);
-                setMessage("Login Successful");
-            },
+            setUser(response.data);
+            setMessage("Login successful!");
             
-            onFailure: (err) => {
-                setMessage(`Error: ${err.message}`);
-            },
-        });
+        } catch (error) {
+            setMessage(error.response?.data?.detail || "Login failed.");
+        }
     };
 
     return (
