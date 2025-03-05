@@ -1,12 +1,18 @@
 import React from "react";
+import ProfileView from "../components/ProfileView";
+import UserPool from "../cognito";
 
-const ProfilePage = ({user}) => {
-    return (
-        <div>
-            <h1>Profile</h1>
-            <p>Email: {user.attributes.email}</p>
-        </div>
-    );
+const ProfilePage = ({user, setUser}) => {
+    const handleSignOut = () => {
+        const currentUser = UserPool.getCurrentUser();
+
+        if (currentUser) {
+            currentUser.signOut();
+            setUser(null);
+        }
+    };
+
+    return <ProfileView user={user} handleSignOut={handleSignOut} />;
 };
 
 export default ProfilePage;
