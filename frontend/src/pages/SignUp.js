@@ -18,7 +18,7 @@ const Signup = () => {
             new CognitoUserAttribute({Name: "name", Value: name}),
         ];
 
-        UserPool.Signup(email, password, attributeList, null, (err, data) =>{
+        UserPool.signup(email, password, attributeList, null, (err, data) =>{
             if (err) {
                 setMessage(`Error: ${err.message}`);
             } else {
