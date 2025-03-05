@@ -13,15 +13,26 @@ const Login = ({setUser}) => {
         event.preventDefault();
 
         try {
+            console.log("Sending request to:", `${API_URL}/login`);
+
             const response = await axios.post(`${API_URL}/login`, {
                 email,
                 password,
             });
 
-            setUser(response.data);
-            setMessage("Login successful!");
-            
+            console.log("Login response:", response.data);
+
+            if (response.data.token) {
+                localStorage.setItem("token", response.data.token);
+                setMessage("Login successful! Redirecting...");
+                setTimeout(() => {
+                    window.location.href = "/profile";
+                }, 2000);
+            } else {
+                setMessage("Login failed: No token received.");
+            }
         } catch (error) {
+            console.error("Login error:", error.response?.data || error.message); 
             setMessage(error.response?.data?.detail || "Login failed.");
         }
     };
