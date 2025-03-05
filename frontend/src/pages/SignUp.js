@@ -4,7 +4,7 @@ import SignupForm from "../components/SignupForm";
 import API_URL from "../config";
 import axios from "axios";
 
-const Signup = () => {
+const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
@@ -40,4 +40,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default SignUp;
