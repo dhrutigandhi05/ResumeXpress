@@ -4,6 +4,7 @@ import boto3
 import base64
 import hmac
 import hashlib
+import google.generativeai as genai
 
 load_dotenv()
 
@@ -27,3 +28,7 @@ def calculate_secret_hash(username):
     ).digest()
 
     return base64.b64encode(dig).decode()
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\Users\dhrut\OneDrive\Desktop\ResumeXpress\backend\keys\resumexpress-c14d78e43ae2.json"
+
+genai.configure()
