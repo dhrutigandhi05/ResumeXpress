@@ -29,6 +29,9 @@ def calculate_secret_hash(username):
 
     return base64.b64encode(dig).decode()
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\Users\dhrut\OneDrive\Desktop\ResumeXpress\backend\keys\resumexpress-c14d78e43ae2.json"
-
-genai.configure()
+key_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+if key_path:
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
+    genai.configure(api_key=key_path)
+else:
+    raise ValueError("Google Application Credentials not set")
