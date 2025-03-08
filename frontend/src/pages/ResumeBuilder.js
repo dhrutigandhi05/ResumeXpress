@@ -28,5 +28,60 @@ const ResumeBuilder = () => {
         setExperience(updatedExperience);
     };
 
-    
+    return (
+        <div>
+            <h2>Build Your Resume</h2>
+
+            {/* Personal Details */}
+            <input type="text" placeholder="Name" 
+                value={personalDetails.name} 
+                onChange={(e) => setPersonalDetails({...personalDetails, name: e.target.value})}
+            />
+
+            <input type="email" placeholder="Email" 
+                value={personalDetails.email} 
+                onChange={(e) => setPersonalDetails({...personalDetails, email: e.target.value})}
+            />
+
+            <input type="text" placeholder="Phone" 
+                value={personalDetails.phone} 
+                onChange={(e) => setPersonalDetails({...personalDetails, phone: e.target.value})}
+            />
+
+            {/* Work Experience */}
+            {experience.map((exp, index) => (
+                <div key={index}>
+                    <input type="text" placeholder="Company" 
+                        value={exp.company} 
+                        onChange={(e) => {
+                            const updatedExperience = [...experience];
+                            updatedExperience[index].company = e.target.value;
+                            setExperience(updatedExperience);
+                        }}
+                    />
+
+                    <input type="text" placeholder="Position" 
+                        value={exp.position} 
+                        onChange={(e) => {
+                            const updatedExperience = [...experience];
+                            updatedExperience[index].position = e.target.value;
+                            setExperience(updatedExperience);
+                        }}
+                    />
+
+                    <button onClick={() => handleGenerateDescription(index)}>
+                        Generate Description
+                    </button>
+
+                    <textarea 
+                        placeholder="Description"
+                        value={exp.description}
+                        readOnly
+                    />
+                </div>
+            ))}
+
+            <button onClick={handleAddExperience}>Add Experience</button>
+        </div>
+    );
 };
