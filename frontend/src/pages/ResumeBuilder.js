@@ -31,7 +31,6 @@ const ResumeBuilder = () => {
     return (
         <div>
             <h2>Build Your Resume</h2>
-            {/* Personal Details */}
             <input type="text" placeholder="Name" 
                 value={personalDetails.name} 
                 onChange={(e) => setPersonalDetails({...personalDetails, name: e.target.value})}
@@ -44,7 +43,6 @@ const ResumeBuilder = () => {
                 value={personalDetails.phone} 
                 onChange={(e) => setPersonalDetails({...personalDetails, phone: e.target.value})}
             />
-            {/* Work Experience */}
             {experience.map((exp, index) => (
                 <div key={index}>
                     <input type="text" placeholder="Company" 
