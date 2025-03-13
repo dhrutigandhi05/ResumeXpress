@@ -29,9 +29,12 @@ def calculate_secret_hash(username):
 
     return base64.b64encode(dig).decode()
 
-api_key = os.getenv("GOOGLE_API_KEY")
-if api_key:
-    os.environ["GOOGLE_API_KEY"] = api_key
-    genai.configure(api_key=api_key)
-else:
-    raise ValueError("Google Application Credentials not set")
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+# API_KEY = os.getenv("GOOGLE_API_KEY")
+# print("API Key:", API_KEY)
+# if API_KEY:
+#     os.environ["GOOGLE_API_KEY"] = API_KEY
+#     genai.configure(api_key=API_KEY)
+# else:
+#     raise ValueError("Google Application Credentials not set")
