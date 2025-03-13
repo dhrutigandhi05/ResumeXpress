@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from routes import auth
 from fastapi.middleware.cors import CORSMiddleware
+from routes import generate
 
 app = FastAPI()
 
@@ -13,6 +14,7 @@ app.add_middleware(
 )
 
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+app.include_router(generate.router, prefix="/api/ai", tags=["ai"])
 
 @app.get("/")
 def home():
